@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { InitialState } from '../store/initialstate';
 
-const todosSelector = (state) => state.todos;
+const todosSelector = (state: InitialState) => state.todos;
 
 export const getTodos = createSelector(
     [todosSelector],

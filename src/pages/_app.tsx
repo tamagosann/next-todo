@@ -7,24 +7,7 @@ import createStore from '../redux/store/store'
 
 import '../styles/reset.css'
 
-type UseStore = Store<EmptyObject & {
-    todos: {
-        todoId: string;
-        todoName: string;
-        detail: string;
-        chargedBy: string;
-        deadline: string;
-        startDate: string;
-        progress: number;
-    }[];
-    user: {
-        uid: string;
-        isSignedIn: boolean;
-        username: string;
-    };
-}, AnyAction>
-
-export const store: UseStore = createStore();
+export const store = createStore();
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (

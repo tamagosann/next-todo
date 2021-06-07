@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { TextField } from '@material-ui/core';
 
-const DateInput = (props) => {
+type DateInputProps = {
+    label: string,
+    value: string,
+    fullWidth?: boolean,
+    required?: boolean,
+    deadline? : string,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const DateInput: FC<DateInputProps> = (props) => {
     return (
         <TextField
             fullWidth={props.fullWidth}
@@ -15,7 +24,7 @@ const DateInput = (props) => {
             }}
             value={props.deadline}
             onChange={props.onChange}
-      />
+        />
     )
 }
 

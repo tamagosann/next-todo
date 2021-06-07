@@ -1,7 +1,10 @@
 import * as Actions from './actions'
 import initialState from '../store/initialState'
 
-export const UserReducer = (state = initialState.user, action) => {
+export const UserReducer = (state = initialState.user, action:
+      ReturnType<typeof Actions.setUserAction>
+    | ReturnType<typeof Actions.deleteUserAction>
+    ) => {
     switch (action.type) {
         case Actions.SET_USER_ACTION:
             return {

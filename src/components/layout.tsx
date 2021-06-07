@@ -1,26 +1,29 @@
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { AnyAction, EmptyObject, Store } from "redux";
 import { db } from '../../lib/db';
-import { useRouter } from 'next/dist/client/router';
+import { NextRouter, useRouter } from 'next/dist/client/router';
 import { fetchTodos, resetData, updateTodos } from '../redux/todos/operations';
 import { getTodos } from '../redux/todos/selectors';
 import { getIsSignedIn, getUid } from '../redux/user/selecters';
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { listenAuthState } from "../redux/user/operations";
 import Header from "./Header";
+import { IsSignedIn, Uid } from "../type/type";
+import { InitialState, Todos } from "src/redux/store/initialstate";
+import { Todo } from "src/redux/todos/type";
 
 type LayoutProps = {
     children: JSX.Element;
     home?: boolean;
 }
 
-const Layout = ({ children, home }: LayoutProps): JSX.Element => {
-    const selector = useSelector((state) => state);
-    const uid = getUid(selector);
+const Layout: FC<LayoutProps> = ({ children, home }) => {
+    const selector = useSelector((state: InitialState) => state);
+    const uid= getUid(selector);
     const isSignedIn = getIsSignedIn(selector);
     const dispatch = useDispatch();
-    const router = useRouter();
-    let todos = getTodos(selector)
+    const router: NextRouter = useRouter();
+    let todos = getTodos(selector) as Todos
     console.log(todos)
   
     useEffect(() => {
@@ -43,10 +46,10 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
   
     useEffect(() => {
       if (uid) {
-        const unsubscribe = db.collection(`users/${uid}/todos`)
-          .onSnapshot((snapshots) => {
+        const unsubscribe: () => void = db.collection(`users/${uid}/todos`)
+          .onSnapshot((snapshots => {
             snapshots.docChanges().forEach((change) => {
-              const data = change.doc.data();
+              const data = change.doc.data() as Todo
               const todo = {
                 ...data,
                 todoId: change.doc.id
@@ -73,7 +76,7 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
               }
             });
             dispatch(updateTodos(todos));
-          });
+          }));
     
         return () => unsubscribe();
       }

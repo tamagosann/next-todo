@@ -1,7 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import { ListItem, ListItemText } from "@material-ui/core";
 
-const TodoDetailListItem = (props) => {
+type TodoDetailListItemProps = {
+    text: string,
+    label: string,
+}
+
+const TodoDetailListItem: FC<TodoDetailListItemProps> = (props) => {
   return (
     <ListItem> 
       <ListItemText primary={props.text} secondary={props.label} />

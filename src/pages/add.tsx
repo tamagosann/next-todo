@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core";
 import {
@@ -40,40 +40,34 @@ const TodoAdd = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [todoName, setTodoName] = useState(""),
-    [detail, setDetail] = useState(""),
-    [chargedBy, setChargedBy] = useState(""),
-    [deadline, setDeadline] = useState("");
+  const [todoName,   setTodoName] = useState(""),
+        [detail,       setDetail] = useState(""),
+        [chargedBy, setChargedBy] = useState(""),
+        [deadline,   setDeadline] = useState("");
 
-  const todoNameOnChange = useCallback(
-    (e) => {
-      setTodoName(e.target.value);
-    },
-    [setTodoName]
-  );
+  const todoNameOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setTodoName(e.target.value);
+  },[setTodoName]);
 
-  const detailOnChange = useCallback(
-    (e) => {
+  const detailOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
       setDetail(e.target.value);
-    },
-    [setDetail]
-  );
+    },[setDetail]);
 
   const chargedByOnChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       setChargedBy(e.target.value);
     },
     [setChargedBy]
   );
 
   const deadlineOnChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       setDeadline(e.target.value);
     },
     [setDeadline]
   );
 
-  const addTodoClicked = (todoName, detail, chargedBy, deadline) => {
+  const addTodoClicked = (todoName: string, detail: string, chargedBy: string, deadline: string) => {
     dispatch(addTodo(todoName, detail, chargedBy, deadline));
     router.push("/");
   };
@@ -94,7 +88,7 @@ const TodoAdd = () => {
             rows={1}
             value={todoName}
             type={"text"}
-            onChange={todoNameOnChange}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => todoNameOnChange(e)}
           />
           <TextInput
             fullWidth={true}

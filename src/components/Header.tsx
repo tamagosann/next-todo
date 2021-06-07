@@ -13,6 +13,7 @@ import { getUsername } from '../redux/user/selecters';
 import { signOut } from '../redux/user/operations';
 import { Divider } from '@material-ui/core';
 import Link from 'next/link';
+import { InitialState, Todos } from 'src/redux/store/initialstate';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -26,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const selector = useSelector(state => state);
+  const selector = useSelector((state: InitialState) => state);
   const username = getUsername(selector);
-  const todos = getTodos(selector);
+  const todos: Todos = getTodos(selector);
 
   return (
     <div className={classes.grow}>

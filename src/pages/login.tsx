@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIsSignedIn } from "../redux/user/selecters";
 import { signIn } from "../redux/user/operations";
 import Head from "next/head";
+import { InitialState } from "src/redux/store/initialstate";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const LogIn: FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state);
+  const selector = useSelector((state: InitialState) => state);
   const isSignedIn = getIsSignedIn(selector);
   console.log(isSignedIn);
 

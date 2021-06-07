@@ -2,9 +2,10 @@ import PrimaryButton from "../components/UIKit/PrimaryButton";
 import TodoListTable from "../components/TodoListTable";
 import Link from "next/link";
 import { Container } from "@material-ui/core";
+import { FC } from "react";
 
 
-const App = () => {
+const App: FC = () => {
 
   return (
     <>

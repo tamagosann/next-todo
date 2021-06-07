@@ -13,6 +13,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { deleteTodo } from "../redux/todos/operations";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { InitialState, Todos } from "src/redux/store/initialstate";
+import { Todo } from "src/redux/todos/type";
 
 const useStyles = makeStyles({
   table: {
@@ -40,21 +42,23 @@ const TodoListTable = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const selector = useSelector((state) => state);
-  const todos = getTodos(selector);
-  console.log(todos);
+  const selector = useSelector((state:InitialState) => state);
+  const todos: Todos = getTodos(selector);
 
   const LinkToEachTodo = useCallback((path) => {
       router.push("/detail/" + path);
     },[router]);
 
-  const deleteTodoOnClicked = (event, todoId) => {
-    console.log(todoId);
+  const deleteTodoOnClicked = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, todoId: string): void => {
     event.stopPropagation();
     dispatch(deleteTodo(todoId));
   };
 
-  const message = {
+  type Message = {
+    [message: string]: string
+  }
+
+  const message: Message = {
     fight: "いい感じ！",
     last: "もう少し！",
     complete: "完了！",
@@ -110,7 +114,7 @@ const TodoListTable = () => {
                 </TableCell>
                 <TableCell align="right">
                   <DeleteIcon
-                    onClick={(event) => deleteTodoOnClicked(event, todo.todoId)}
+                    onClick={(event: React.MouseEvent<SVGSVGElement, MouseEvent>) => deleteTodoOnClicked(event, todo.todoId)}
                   />
                 </TableCell>
               </TableRow>
